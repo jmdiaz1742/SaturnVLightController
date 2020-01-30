@@ -52,3 +52,5 @@ Mkfile.old
 dkms.conf
 
 STM32CubeMX/\.metadata/
+
+STM32CubeMX/
