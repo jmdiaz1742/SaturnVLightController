@@ -9,6 +9,7 @@
 AlignAfterOpenBracket:                           Align
 AlignConsecutiveAssignments:                     true
 AlignConsecutiveDeclarations:                    true
+AlignConsecutiveMacros:                          true
 AlignEscapedNewlinesLeft:                        true
 AlignOperands:                                   true
 AlignTrailingComments:                           true
@@ -47,11 +48,11 @@ BreakBeforeTernaryOperators:                     true
 BreakConstructorInitializers:                    AfterColon
 BreakInheritanceList:                            AfterColon
 BreakStringLiterals:                             true
-ColumnLimit:                                     120
+ColumnLimit:                                     80
 # CommentPragmas                                   
 CompactNamespaces:                               false
 ConstructorInitializerAllOnOneLineOrOnePerLine:  true
-ConstructorInitializerIndentWidth:               120
+ConstructorInitializerIndentWidth:               80
 ContinuationIndentWidth:                         4
 Cpp11BracedListStyle:                            true
 DerivePointerAlignment:                          false

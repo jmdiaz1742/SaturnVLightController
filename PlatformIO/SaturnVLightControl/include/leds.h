@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+#define LED_OFF_VALUE (0)
+
 /**
  * @brief LED data type
  *
