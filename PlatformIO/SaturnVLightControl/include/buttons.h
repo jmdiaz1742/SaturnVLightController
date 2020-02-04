@@ -2,7 +2,6 @@
 #define BUTTONS_H
 
 #include "common.h"
-#include "buttons_cfg.h"
 
 typedef enum
 {

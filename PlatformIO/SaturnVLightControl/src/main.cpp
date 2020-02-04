@@ -12,19 +12,14 @@ Serial pc(DEBUG_SERIAL_TX, DEBUG_SERIAL_RX);
 #define MAIN_DEBUG_PRINT(message, ...)
 #endif // DEBUG_PRINT
 
-typedef struct
-{
-    uint8_t major;
-    uint8_t minor;
-    uint8_t patch;
-} version_t;
-
-static const version_t Version = {VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH};
-
 static volatile bool fireEnabled = true;
 static Timer         fireTimer;
 
-void ModeButtonAction(void)
+/**
+ * @brief When mode button is pressed, enable/disable the fire animation
+ *
+ */
+static void modeButtonAction(void)
 {
     fireEnabled = !fireEnabled;
     if (fireEnabled)
@@ -47,15 +42,18 @@ int main()
                      Version.major,
                      Version.minor,
                      Version.patch);
-    Fire_init();
-    Button_Init(&ModeButtonAction);
     MAIN_DEBUG_PRINT("Fire steps: %d\r\n", Fire_getNumberOfFireSteps());
+
+    Fire_init();
+    Button_Init(&modeButtonAction);
+
     Fire_start();
+    Button_Start();
     fireTimer.start();
 
     while (1)
     {
-        if (fireEnabled && fireTimer.read_ms() >= FIRE_PERIOD_MS)
+        if (fireEnabled && (fireTimer.read_ms() >= FIRE_PERIOD_MS))
         {
             Fire_step();
             fireTimer.reset();
