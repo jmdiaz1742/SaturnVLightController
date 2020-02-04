@@ -1,4 +1,5 @@
 #include "fire.h"
+#include "buttons.h"
 #include "version.h"
 #include "common.h"
 
@@ -23,6 +24,22 @@ static const version_t Version = {VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH};
 static volatile bool fireEnabled = true;
 static Timer         fireTimer;
 
+void ModeButtonAction(void)
+{
+    fireEnabled = !fireEnabled;
+    if (fireEnabled)
+    {
+        Fire_start();
+        fireTimer.start();
+    }
+    else
+    {
+        Fire_stop();
+        fireTimer.stop();
+    }
+    MAIN_DEBUG_PRINT("Fire status: %d\r\n", fireEnabled);
+}
+
 int main()
 {
     MAIN_DEBUG_PRINT("Saturn V lights controller\r\n"
@@ -31,9 +48,10 @@ int main()
                      Version.minor,
                      Version.patch);
     Fire_init();
+    Button_Init(&ModeButtonAction);
+    MAIN_DEBUG_PRINT("Fire steps: %d\r\n", Fire_getNumberOfFireSteps());
     Fire_start();
     fireTimer.start();
-    MAIN_DEBUG_PRINT("Fire steps: %d\r\n", Fire_getNumberOfFireSteps());
 
     while (1)
     {
